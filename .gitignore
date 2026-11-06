@@ -1,0 +1,5 @@
+*.o
+/check/
+/release/
+roundtrip.*
+transparent.*

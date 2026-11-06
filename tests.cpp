@@ -1,0 +1,15 @@
+#define wWinMain PhotoMasterMain
+#include "PhotoMaster.cpp"
+#undef wWinMain
+#include <iostream>
+#include <stdexcept>
+void check(bool condition,const char* label){if(!condition)throw std::runtime_error(label);std::cout<<"PASS "<<label<<std::endl;}
+int main(){ULONG_PTR token;GdiplusStartupInput start;GdiplusStartup(&token,&start,0);INITCOMMONCONTROLSEX cc={sizeof(cc),ICC_BAR_CLASSES};InitCommonControlsEx(&cc);WNDCLASS wc={};wc.hInstance=GetModuleHandle(0);wc.lpfnWndProc=proc;wc.lpszClassName=L"PMTest";RegisterClass(&wc);win=CreateWindow(wc.lpszClassName,L"Tests",WS_OVERLAPPEDWINDOW,0,0,1100,900,0,0,wc.hInstance,0);try{
+ Photo source;source.w=160;source.h=200;source.p.resize(32000);for(int y=0;y<200;y++)for(int x=0;x<160;x++){auto &p=source.p[y*160+x];if(x<20||x>140||y<20||y>180)p={245,245,245,255};else p={(BYTE)(60+x/3),(BYTE)(90+y/5),(BYTE)(110+x/4),255};}
+ check(saveImage(source,L"roundtrip.png"),"PNG encode");auto png=readImage(L"roundtrip.png");check(png.w==160&&png.h==200&&memcmp(png.p.data(),source.p.data(),source.p.size()*4)==0,"PNG exact pixel roundtrip");check(saveImage(source,L"roundtrip.jpg"),"JPG encode");auto jpg=readImage(L"roundtrip.jpg");check(jpg.w==160&&jpg.h==200,"JPG dimensions");
+ img=orig=source;SendMessage(sl[0],TBM_SETPOS,TRUE,20);updatePreview();check(previewActive&&memcmp(img.p.data(),orig.p.data(),img.p.size()*4)==0,"Preview leaves working image unchanged");check(preview.p[80*160+80].r>img.p[80*160+80].r,"Brightness preview changes pixels");action(104);check(!previewActive&&img.p[80*160+80].r>source.p[80*160+80].r,"Commit settings");action(110);check(memcmp(img.p.data(),source.p.data(),img.p.size()*4)==0,"Undo restores exact pixels");
+ action(102);check(img.w==source.w&&img.h==source.h,"Enhancement preserves dimensions");check(memcmp(img.p.data(),source.p.data(),img.p.size()*4)!=0,"Enhancement changes image");action(110);
+ img.p[100*160+80]={0,0,255,255};int red=img.p[100*160+80].r;healAt(80,100);check(img.p[100*160+80].r<red,"Retouch reduces isolated red blemish");img=source;removeBackground(0,0);check(img.p[0].a==0&&img.p[100*160+80].a==255,"Background removal keeps subject opaque");check(saveImage(img,L"transparent.png"),"Alpha PNG encode");auto alpha=readImage(L"transparent.png");check(alpha.p[0].a==0&&alpha.p[100*160+80].a==255,"PNG transparency roundtrip");check(saveImage(img,L"transparent.jpg"),"JPEG flattens transparency");auto white=readImage(L"transparent.jpg");check(white.p[0].a==255&&white.p[0].r>245,"JPEG background is white");
+ img=source;img.p[100*160+80]={255,255,255,255};restore(img);check(img.p[100*160+80].r<245,"Restoration removes isolated white damage");img=source;centerX=.5;centerY=.5;document();check(img.w==413&&img.h==531,"Document crop 413 by 531");check(img.p[265*413+206].a>200,"Document contains source pixels");check(orig.w==160&&orig.h==200,"Original geometry unchanged");
+ scrollSidebar(10000);check(sidebarOffset>=0&&sidebarOffset<=300,"Sidebar scroll is bounded");std::cout<<"ALL TESTS PASSED"<<std::endl;
+ }catch(const std::exception &e){std::cerr<<"FAIL "<<e.what()<<std::endl;return 1;}DestroyWindow(win);GdiplusShutdown(token);return 0;}

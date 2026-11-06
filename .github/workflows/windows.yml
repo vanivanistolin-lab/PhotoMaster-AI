@@ -1,0 +1,42 @@
+name: Build PhotoMaster Windows
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: mingw-w64-x86_64-gcc
+      - name: Compile portable EXE and tests
+        shell: msys2 {0}
+        run: |
+          mkdir -p release check
+          windres -I . PhotoMaster.rc -o resources.o
+          g++ -std=c++17 -O2 -static -municode -mwindows PhotoMaster.cpp resources.o -o release/PhotoMaster.exe -lgdiplus -lcomdlg32 -lcomctl32 -lshell32 -lgdi32 -luser32
+          g++ -std=c++17 -O2 -static tests.cpp -o check/tests.exe -lgdiplus -lcomdlg32 -lcomctl32 -lshell32 -lgdi32 -luser32
+          cp README.txt release/
+          cp -r licenses release/
+      - name: Test image processing on Windows
+        shell: pwsh
+        run: |
+          Push-Location check
+          ./tests.exe | Tee-Object -FilePath test-results.txt
+          if ($LASTEXITCODE -ne 0) { throw 'Image processing tests failed' }
+          Pop-Location
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PhotoMaster-Windows-x64
+          path: release/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PhotoMaster-test-results
+          path: check/test-results.txt
