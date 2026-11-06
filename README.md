@@ -39,8 +39,10 @@
 - [Workflow Windows](.github/workflows/windows.yml)
 - [Результаты 21 проверки через Wine](TEST-RESULTS-WINE.txt)
 
-Готовый EXE собран MinGW-w64 GCC 14. Запуск интерфейса и тесты проверены через Wine 10;
-эта проверка не заменяет испытания на реальном компьютере Windows.
+Готовый EXE собран MinGW-w64 GCC 14; запуск интерфейса проверен через Wine 10.
+**Автоматическая сборка и все 21 тест обработки также успешно выполнены на Windows в GitHub Actions:**
+[успешный запуск](https://github.com/vanivanistolin-lab/PhotoMaster-AI/actions/runs/42239127916).
+Ручная проверка интерфейса на пользовательском компьютере Windows ещё не проводилась.
 
 ## Лицензия
 

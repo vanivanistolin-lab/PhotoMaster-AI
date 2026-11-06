@@ -1,0 +1,25 @@
+Windows GitHub Actions
+https://github.com/vanivanistolin-lab/PhotoMaster-AI/actions/runs/42239127916
+
+PASS PNG encode
+PASS PNG exact pixel roundtrip
+PASS JPG encode
+PASS JPG dimensions
+PASS Preview leaves working image unchanged
+PASS Brightness preview changes pixels
+PASS Commit settings
+PASS Undo restores exact pixels
+PASS Enhancement preserves dimensions
+PASS Enhancement changes image
+PASS Retouch reduces isolated red blemish
+PASS Background removal keeps subject opaque
+PASS Alpha PNG encode
+PASS PNG transparency roundtrip
+PASS JPEG flattens transparency
+PASS JPEG background is white
+PASS Restoration removes isolated white damage
+PASS Document crop 413 by 531
+PASS Document contains source pixels
+PASS Original geometry unchanged
+PASS Sidebar scroll is bounded
+ALL TESTS PASSED
