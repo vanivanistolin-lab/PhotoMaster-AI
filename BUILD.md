@@ -10,9 +10,9 @@
 доступности сервиса и лимитов аккаунта. Рабочие фотографии для сборки не нужны.
 
 Workflow компилирует EXE со статическим C++ runtime, встраивает иконку и манифест,
-запускает 21 проверку обработки под Windows и упаковывает программу как артефакт.
-Workflow успешно выполнен на Windows в GitHub Actions, включая все 21 тест:
-https://github.com/vanivanistolin-lab/PhotoMaster-AI/actions/runs/42239127916
+запускает 43 проверку обработки под Windows и упаковывает программу как артефакт.
+Workflow успешно выполнен на Windows в GitHub Actions, включая все 43 тест:
+https://github.com/vanivanistolin-lab/PhotoMaster-AI/actions/runs/42255767846
 
 Эта поставка собрана в Linux через MinGW-w64 GCC 14; запуск и тесты выполнены через Wine 10.
 `tests.cpp` создаёт синтетические изображения и проверяет реальные функции редактора.

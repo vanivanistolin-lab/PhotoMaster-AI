@@ -1,5 +1,5 @@
-Windows GitHub Actions
-https://github.com/vanivanistolin-lab/PhotoMaster-AI/actions/runs/42239127916
+Windows GitHub Actions 2.0
+https://github.com/vanivanistolin-lab/PhotoMaster-AI/actions/runs/42255767846
 
 PASS PNG encode
 PASS PNG exact pixel roundtrip
@@ -21,5 +21,27 @@ PASS Restoration removes isolated white damage
 PASS Document crop 413 by 531
 PASS Document contains source pixels
 PASS Original geometry unchanged
+PASS Rotation swaps dimensions
+PASS Inverse rotation restores exact pixels
+PASS Double horizontal flip restores pixels
+PASS Double vertical flip restores pixels
+PASS Crop uses selected source rectangle
+PASS Resize retains image content
+PASS Grayscale equal channels
+PASS Double negative restores pixels
+PASS Eraser only modifies brush area
+PASS Paint restores opacity and selected color
+PASS Redo restores edited image
+PASS Effect preserves geometry
+PASS Effect preserves geometry
+PASS Effect preserves geometry
+PASS Effect preserves geometry
+PASS Effect preserves geometry
+PASS Effect preserves geometry
+PASS Effect preserves geometry
+PASS Effect preserves geometry
+PASS Effect preserves geometry
+PASS Effect preserves geometry
+PASS Effect preserves geometry
 PASS Sidebar scroll is bounded
 ALL TESTS PASSED

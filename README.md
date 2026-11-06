@@ -50,8 +50,8 @@ Ctrl+O / S / Z / Y — открыть / сохранить / отменить / 
 - [Результаты 21 проверки через Wine](TEST-RESULTS-WINE.txt)
 
 EXE 2.0 собран MinGW-w64 GCC 14; запуск интерфейса проверен через Wine 10.
-**Предыдущая версия: сборка и 21 тест выполнены на Windows в GitHub Actions:**
-[успешный запуск](https://github.com/vanivanistolin-lab/PhotoMaster-AI/actions/runs/42239127916).
+**Версия 2.0: сборка и все 43 теста выполнены на Windows в GitHub Actions:**
+[успешный запуск](https://github.com/vanivanistolin-lab/PhotoMaster-AI/actions/runs/42255767846).
 Ручная проверка интерфейса на пользовательском компьютере Windows ещё не проводилась.
 
 ## Лицензия
